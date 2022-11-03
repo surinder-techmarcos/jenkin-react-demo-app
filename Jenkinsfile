@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs "nodejs"
+        nodejs "node 7"
     }
     // tools {
     //     nodejs "node 7"
