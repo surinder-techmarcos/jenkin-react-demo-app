@@ -19,15 +19,11 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                echo "Deployment starting...."
-                echo "REMOTE_USERNAME : ${env.REMOTE_USERNAME}, REMOTE_HOST: ${env.REMOTE_HOST}"
-                echo "${env.REMOTE_TARGET}"
-                echo "$WORKSPACE"
-                echo sshagent(['techmarcos-ssh-key']) {
+                echo "Deploying..."
+                sshagent(['techmarcos-ssh-key']) {
                     // sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
                     // sh "ssh -v ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
                     sh "scp -r ${WORKSPACE}/build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}"
-                    // sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} /bin/bash -c 'cd ${env.REMOTE_TARGET} && ls -l'"
                     sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} /bin/bash -c '\"cd ${env.REMOTE_TARGET} && chmod u+x ./docker-restart.sh && ./docker-restart.sh\"'"
                 }
                 echo "Deploy App Successfully."
