@@ -27,7 +27,8 @@ pipeline {
                     sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
                     // sh "ssh -v ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
                     sh "scp -r ${WORKSPACE}/build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}"
-                    sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} /bin/bash -c 'cd ${env.REMOTE_TARGET} && ls -l'"
+                    // sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} /bin/bash -c 'cd ${env.REMOTE_TARGET} && ls -l'"
+                    sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} /bin/bash -c '${env.REMOTE_TARGET}/docker-restart.sh'"
                 }
                 echo "Deploy App Successfully."
             }
