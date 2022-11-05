@@ -3,6 +3,9 @@ pipeline {
     tools {
         nodejs "nodejs 19.0.0"
     }
+    triggers {
+        githubPush()
+    }
     stages {
         stage("Build") {
             steps {
