@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to jenkins 99999.
+          Welcome to jenkins.
         </p>
         <p>
           Edit <code>src/App.js</code> and save to reload.
