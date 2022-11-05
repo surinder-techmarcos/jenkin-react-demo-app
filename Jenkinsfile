@@ -26,11 +26,9 @@ pipeline {
                 echo sshagent(['techmarcos-ssh-key']) {
                     sh "ssh -o StrictHostKeyChecking=no -T ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
                     // sh "ssh -v ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}"
-                    sh "scp -r ./build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}"
+                    sh "scp -r ${WORKSPACE}/build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}"
                 }
                 echo "Deploy App Successfully."
-                // sh "sudo rm -rf /var/www/jenkins-react-app"
-                // sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
             }
         }
     }
