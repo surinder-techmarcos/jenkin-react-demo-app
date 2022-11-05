@@ -19,14 +19,16 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                echo "Deploy App Successfully."
-                echo "${env.REMOTE_USERNAME}, ${env.REMOTE_HOST}"
+                echo "Deployment starting...."
+                echo "REMOTE_USERNAME : ${env.REMOTE_USERNAME}, REMOTE_HOST: ${env.REMOTE_HOST}"
+                echo "$WORKSPACE"
                 echo sshagent(['techmarcos-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} uptime'
-                    sh 'ssh -v ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}'
-                    sh 'scp ./build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}'
+                    // sh 'ssh -o StrictHostKeyChecking=no ${env.REMOTE_USERNAME}@${env.REMOTE_HOST} uptime'
+                    // sh 'ssh -v ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}'
+                    sh 'scp $WORKSPACE/build ${env.REMOTE_USERNAME}@${env.REMOTE_HOST}:${env.REMOTE_TARGET}'
                 }
-                echo "Success"
+                
+                echo "Deploy App Successfully."
                 // sh "sudo rm -rf /var/www/jenkins-react-app"
                 // sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
             }
